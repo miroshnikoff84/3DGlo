@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const timerHours = document.getElementById('timer-hours'),
       timerMinutes = document.getElementById('timer-minutes'),
       timerSeconds = document.getElementById('timer-seconds');
-
+// если число однозначное, то подставляем ноль
     const getTimeRemaning = () => {
         const goodTime = (time) => {
             if (time > 0 && time < 10) {
