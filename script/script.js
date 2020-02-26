@@ -292,7 +292,7 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     slider();
-
+    // смена фото при наведении мышки
     const changePhoto = () => {
 
         const commandPhotos = document.querySelectorAll('.command__photo');
@@ -321,7 +321,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     changePhoto();
 
-
+    // проверка инпутов на ввод цифр
     const checkNumberIntoCalcBlock = () => {
         const calcBlock = document.querySelector('.calc-block');
 
