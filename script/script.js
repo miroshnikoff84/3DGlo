@@ -293,5 +293,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
     slider();
 
-
 });
