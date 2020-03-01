@@ -463,14 +463,14 @@ window.addEventListener('DOMContentLoaded', () => {
         body.addEventListener('input', (event) => {
             let target = event.target;
             if (target.matches('input[name="user_phone"]')) {
-                target.value = target.value.replace(/^\+?[78]([-()]*\d){13}$/, '');
+                target.value = target.value.replace(/(\+7|8)[0-9]\d{9,}/g, '');
                 inputEmail.forEach((e) => {
                     e.setAttribute('required', '');
                 });
 
             }
             if (target.matches('input[name="user_name"]') || target.matches('input[name="user_message"]')) {
-                target.value = target.value.replace(/[^а-яА-Я,.!?"';: ]/, '');
+                target.value = target.value.replace(/[^а-яА-Я,.!?"';:]/, '');
             }
 
             if (target.matches('input[name="user_email"]')) {
