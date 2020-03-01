@@ -463,18 +463,18 @@ window.addEventListener('DOMContentLoaded', () => {
         body.addEventListener('input', (event) => {
             let target = event.target;
             if (target.matches('input[name="user_phone"]')) {
-                target.value = target.value.replace(/[^\+\d]/g, '');
+                target.value = target.value.replace(/^\+?[78]([-()]*\d){13}$/, '');
                 inputEmail.forEach((e) => {
                     e.setAttribute('required', '');
                 });
 
             }
             if (target.matches('input[name="user_name"]') || target.matches('input[name="user_message"]')) {
-                target.value = target.value.replace(/^[a-Z0-9_.+-]+@[a-Z0-9-]+\.[a-Z0-9-.]+$/, '');
+                target.value = target.value.replace(/[^а-яА-Я,.!?"';: ]/, '');
             }
 
             if (target.matches('input[name="user_email"]')) {
-                target.value = target.value.replace(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]/, '');
+                target.value = target.value.replace(/^.+@.+\..{3}+$/, '');
             }
         });
 
