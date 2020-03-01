@@ -387,75 +387,98 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // send-ajax-form 
     const sendForm = () => {
-      const errorMessege = `Что-то пошло не так...`,
-            loadMessage = `Загрузка...`,
-            successeMessage = `Спасибо! Мы с вами свяжемся.`,
-            statusMessage = document.createElement('div'),
-            forms = document.querySelectorAll('form'),
-            phoneInput = document.querySelectorAll('.form-phone');
-       
-      phoneInput.forEach((item) => {
-        item.addEventListener('focus', () => {
-          item.value = '+';
+
+        const errorMessage = 'Что-то пошло не так...',
+            loadMessage = 'Загрузка...',
+            successMessage = 'Спасибо! Мы скоро с Вами свяжемся!',
+            form = document.querySelectorAll('form');
+
+        const statusMessage = document.createElement('div');
+        statusMessage.style.cssText = 'font-size: 1.5rem; color: #fff';
+
+        form.forEach((element) => {
+
+            element.addEventListener('submit', (event) => {
+                event.preventDefault();
+                element.appendChild(statusMessage);
+                statusMessage.textContent = loadMessage;
+                const formData = new FormData(element);
+                let body = {};
+                formData.forEach((val, key) => {
+                    body[key] = val;
+                });
+
+                postData(body,
+                    () => {
+                        statusMessage.textContent = successMessage;
+                    },
+                    (error) => {
+                        statusMessage.textContent = errorMessage;
+                        console.log('error: ', error);
+
+                    });
+
+            });
         });
-        item.addEventListener('blur', () => {
-          item.value = '';
-        });
-      });      
-      forms.forEach((item) => {
-        // Валидация для инпутов
-        item.addEventListener('input', (event) => {
-          let target = event.target;
-          if(target.placeholder === 'Ваше имя' || target.placeholder === 'Ваше сообщение') {
-            if(target.value.replace(/^[а-яА-ЯёЁ\s]+/g, '')) {
-              target.value = target.value.substring(0, target.value.length - 1);
-            } else if(target.value.trim() === '') target.value = '';
-            else return;
-          } else if(target.placeholder === 'Номер телефона') { 
-              if(target.value.length === 13  || target.value.slice(1).replace(/[\d]+/g, '')) {
-                target.value = target.value.substring(0, target.value.length - 1);
-              } else return;
-            }
-        });
-        // Action
-        item.addEventListener('submit', (event) => {
-          event.preventDefault();
-          item.appendChild(statusMessage);
-          statusMessage.style = loadMessage;
-          statusMessage.style.cssText = `color: #fff;`;
-  
-          for(let i = 0; i < item.elements.length; i++) {
-            if(item.elements[i].tagName === 'INPUT') {
-              item.elements[i].value = '';
-            }
-          }
-    
-          const formData = new FormData(item);
-          let body = {};
-          formData.forEach((value, key) => body[key] = value);
-          
-          postData(body, () => {
-            statusMessage.textContent = successeMessage;
-          }, (error) => {
-            statusMessage.textContent = errorMessege;
-          });
-        });
-      });   
-      
-      const postData = (body, outputData, errorData) => {
-        const request = new XMLHttpRequest();
-  
-        request.addEventListener('readystatechange', () => {
-          if(request.readyState !== 4) return;
-          
-          if(request.status === 200) outputData();
-          else errorData(request.status);
-        });
-  
-        request.open('POST', './server.php');
-        request.setRequestHeader('Content-Type', 'aplication/json');
-        request.send(JSON.stringify(body));
-      };
+
+
+        const postData = (body, outputData, errorData) => {
+            const request = new XMLHttpRequest();
+
+            request.addEventListener('readystatechange', () => {
+                if (request.readyState !== 4) {
+                    return;
+                }
+
+                if (request.status === 200) {
+                    outputData();
+                    form.forEach((elem) => {
+                        elem.querySelectorAll('input').forEach((index) => {
+                            index.value = '';
+                        });        
+                    });
+                } else {
+                    errorData(request.status);
+                }
+            });
+
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
+
+
+            console.log('body: ', body);
+
+            request.send(JSON.stringify(body));
+        };
+
     };
+
     sendForm();
+
+
+    const inputValidation = () => {
+        const body = document.querySelector('body'),
+            inputEmail = document.getElementsByName('user_email');
+           
+        body.addEventListener('input', (event) => {
+            let target = event.target;
+            if (target.matches('input[name="user_phone"]')) {
+                target.value = target.value.replace(/[^\+\d]/g, '');
+                inputEmail.forEach((e) => {
+                    e.setAttribute('required', '');
+                });
+
+            }
+            if (target.matches('input[name="user_name"]') || target.matches('input[name="user_message"]')) {
+                target.value = target.value.replace(/[^а-яА-Я,.!?"';: ]/, '');
+            }
+
+            if (target.matches('input[name="user_email"]')) {
+                target.value = target.value.replace(/[^a-zA-Z,!?"';: ]/, '');
+            }
+        });
+
+    };
+
+    inputValidation();
 });
