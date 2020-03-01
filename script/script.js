@@ -321,7 +321,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     changePhoto();
 
-    // проверка инпутов на ввод цифр
+    // проверка инпутов на ввод цифр     
     const checkNumberIntoCalcBlock = () => {
         const calcBlock = document.querySelector('.calc-block');
 
@@ -470,11 +470,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
             }
             if (target.matches('input[name="user_name"]') || target.matches('input[name="user_message"]')) {
-                target.value = target.value.replace(/[^а-яА-Я,.!?"';: ]/, '');
+                target.value = target.value.replace(/^[a-Z0-9_.+-]+@[a-Z0-9-]+\.[a-Z0-9-.]+$/, '');
             }
 
             if (target.matches('input[name="user_email"]')) {
-                target.value = target.value.replace(/[^a-zA-Z,!?"';: ]/, '');
+                target.value = target.value.replace(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]/, '');
             }
         });
 
