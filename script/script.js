@@ -9,28 +9,28 @@ window.addEventListener('DOMContentLoaded', () => {
             timerSeconds = document.getElementById('timer-seconds');
         // если число однозначное, то подставляем ноль
         const getTimeRemaning = () => {
-            const goodTime = (time) => {
-                if (time > 0 && time < 10) {
-                    return `0${time}`;
-                } else if (time <= 0) {
-                    return `00`;
-                }
-                return time;
-            },
-                dateStop = new Date(deadline).getTime(),
-                dateNow = new Date().getTime(),
-                timeRemaining = (dateStop - dateNow) / 1000,
-                seconds = goodTime(Math.floor(timeRemaining % 60)),
-                minutes = goodTime(Math.floor((timeRemaining / 60) % 60)),
-                hours = goodTime(Math.floor(timeRemaining / 60 / 60));
+                const goodTime = (time) => {
+                        if (time > 0 && time < 10) {
+                            return `0${time}`;
+                        } else if (time <= 0) {
+                            return `00`;
+                        }
+                        return time;
+                    },
+                    dateStop = new Date(deadline).getTime(),
+                    dateNow = new Date().getTime(),
+                    timeRemaining = (dateStop - dateNow) / 1000,
+                    seconds = goodTime(Math.floor(timeRemaining % 60)),
+                    minutes = goodTime(Math.floor((timeRemaining / 60) % 60)),
+                    hours = goodTime(Math.floor(timeRemaining / 60 / 60));
 
-            return {
-                timeRemaining,
-                hours,
-                minutes,
-                seconds
-            };
-        },
+                return {
+                    timeRemaining,
+                    hours,
+                    minutes,
+                    seconds
+                };
+            },
             updateClock = () => {
                 const timer = getTimeRemaning();
                 timerHours.textContent = timer.hours;
@@ -45,7 +45,7 @@ window.addEventListener('DOMContentLoaded', () => {
             };
 
         updateClock();
-        
+
     };
 
     countTimer(`12 marth 2020`);
@@ -55,7 +55,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const toggleMenu = () => {
         const menu = document.querySelector('menu'),
             body = document.querySelector('body');
-        
+
 
         body.addEventListener('click', (event) => {
             let target = event.target;
@@ -185,12 +185,12 @@ window.addEventListener('DOMContentLoaded', () => {
             btn = document.querySelectorAll('.portfolio-btn'),
             slider = document.querySelector('.portfolio-content'),
             dots = document.querySelector('.portfolio-dots');
-            
+
 
         //  Задаем номер первого слайда
         let currentSlide = 0,
             interval;
-        
+
         let dotElem;
 
         const addDots = () => {
@@ -200,13 +200,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 dots.append(dotElem);
             }
             dots.childNodes[1].classList.add('dot-active');
-            
+
         };
 
         addDots();
 
         const dot = document.querySelectorAll('.dot');
-            
+
         const prevSlide = (elem, index, strClass) => {
             elem[index].classList.remove(strClass);
         };
@@ -215,8 +215,8 @@ window.addEventListener('DOMContentLoaded', () => {
             elem[index].classList.add(strClass);
         };
 
-      
-        
+
+
         const autoPlaySlide = () => {
 
             prevSlide(slide, currentSlide, 'portfolio-item-active');
@@ -230,7 +230,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         };
 
-        const startSlide = (time =2000) => {
+        const startSlide = (time = 2000) => {
             interval = setInterval(autoPlaySlide, time);
         };
 
@@ -260,7 +260,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             }
-            
+
             if (currentSlide >= slide.length) {
                 currentSlide = 0;
             }
@@ -274,18 +274,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
         });
 
-        slider.addEventListener('mouseover', (event) =>{
-            if(event.target.matches('.portfolio-btn') ||
+        slider.addEventListener('mouseover', (event) => {
+            if (event.target.matches('.portfolio-btn') ||
                 event.target.matches('.dot')) {
-                    stopSlide();
-                }
+                stopSlide();
+            }
         });
 
         slider.addEventListener('mouseout', (event) => {
-            if(event.target.matches('.portfolio-btn') ||
+            if (event.target.matches('.portfolio-btn') ||
                 event.target.matches('.dot')) {
-                    startSlide();
-                }
+                startSlide();
+            }
         });
 
         startSlide(1500);
@@ -298,17 +298,17 @@ window.addEventListener('DOMContentLoaded', () => {
         const commandPhotos = document.querySelectorAll('.command__photo');
 
         const shifter = (event) => {
-           
-           let  src = event.target.src;
-    
-            if (event.type === 'mouseover') { 
+
+            let src = event.target.src;
+
+            if (event.type === 'mouseover') {
                 event.target.src = event.target.dataset.img;
             }
 
             if (event.type === 'mouseout') {
                 let src2 = src.replace(/a\.jpg/, '.jpg');
                 event.target.src = src2;
-                
+
             }
         };
 
@@ -337,14 +337,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     checkNumberIntoCalcBlock();
 
-     // Калькулятор 
+    // Калькулятор 
     const calc = (price = 100) => {
         const calcBlock = document.querySelector('.calc-block'),
             calcType = document.querySelector('.calc-type'),
             calcSquare = document.querySelector('.calc-square'),
             calcCount = document.querySelector('.calc-count'),
             calcDay = document.querySelector('.calc-day'),
-            totalValue= document.getElementById('total');
+            totalValue = document.getElementById('total');
 
 
         const countSum = () => {
@@ -352,12 +352,12 @@ window.addEventListener('DOMContentLoaded', () => {
                 countValue = 1,
                 dayValue = 1;
 
-            const  typeValue = calcType.options[calcType.selectedIndex].value,
-                   squareValue = +calcSquare.value;
-            
-            
-            if(calcCount.value > 1) {
-                countValue += (calcCount.value -1) / 10;
+            const typeValue = calcType.options[calcType.selectedIndex].value,
+                squareValue = +calcSquare.value;
+
+
+            if (calcCount.value > 1) {
+                countValue += (calcCount.value - 1) / 10;
             }
 
             if (calcDay.value && calcDay.value < 5) {
@@ -377,9 +377,9 @@ window.addEventListener('DOMContentLoaded', () => {
             const target = event.target;
 
             if (target === calcType || target === calcSquare ||
-                target === calcDay || target === calcCount) {   
-                    countSum();
-                }
+                target === calcDay || target === calcCount) {
+                countSum();
+            }
         });
     };
 
@@ -393,10 +393,15 @@ window.addEventListener('DOMContentLoaded', () => {
             successMessage = 'Спасибо! Мы скоро с Вами свяжемся!',
             form = document.querySelectorAll('form');
 
+
+
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 1.5rem; color: #fff';
 
+
+
         form.forEach((element) => {
+
 
             element.addEventListener('submit', (event) => {
                 event.preventDefault();
@@ -408,47 +413,51 @@ window.addEventListener('DOMContentLoaded', () => {
                     body[key] = val;
                 });
 
-                postData(body,
-                    () => {
-                        statusMessage.textContent = successMessage;
-                    },
-                    (error) => {
-                        statusMessage.textContent = errorMessage;
-                        console.log('error: ', error);
+                const outputData = () => {
+                    statusMessage.textContent = successMessage;
+                };
 
-                    });
+                const errorData = (error) => {
+                    statusMessage.textContent = errorMessage;
+                    console.log('error: ', error);
+                };
+
+                postData(body)
+                    .then(outputData)
+                    .catch(errorData);
 
             });
         });
 
 
         const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
 
-            request.addEventListener('readystatechange', () => {
-                if (request.readyState !== 4) {
-                    return;
-                }
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
 
-                if (request.status === 200) {
-                    outputData();
-                    form.forEach((elem) => {
-                        elem.querySelectorAll('input').forEach((index) => {
-                            index.value = '';
-                        });        
-                    });
-                } else {
-                    errorData(request.status);
-                }
+                request.addEventListener('readystatechange', () => {
+                    if (request.readyState !== 4) {
+                        return;
+                    }
+
+                    if (request.status === 200) {
+                        resolve();
+                        form.forEach((elem) => {
+                            elem.querySelectorAll('input').forEach((index) => {
+                                index.value = '';
+                            });
+                        });
+                    } else {
+                        reject(request.status);
+                    }
+                });
+
+                request.open('POST', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+
+                console.log('body: ', body);
+                request.send(JSON.stringify(body));
             });
-
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-
-
-            console.log('body: ', body);
-
-            request.send(JSON.stringify(body));
         };
 
     };
@@ -459,11 +468,11 @@ window.addEventListener('DOMContentLoaded', () => {
     const inputValidation = () => {
         const body = document.querySelector('body'),
             inputEmail = document.getElementsByName('user_email');
-           
+
         body.addEventListener('input', (event) => {
             let target = event.target;
             if (target.matches('input[name="user_phone"]')) {
-                target.value = target.value.replace(/[^\+\d\(\)\-]/g, '');
+                target.value = target.value.replace(/[^\+{1}\d\(\)\-]/g, '');
                 inputEmail.forEach((e) => {
                     e.setAttribute('required', '');
                 });
@@ -477,7 +486,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 target.value = target.value.replace(/[^.\-\_+@+\w+\.+\w{2,}]/, '');
             }
         });
-         
+
 
     };
 
