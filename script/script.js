@@ -472,8 +472,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     const inputValidation = () => {
-        const body = document.querySelector('body'),
-            inputEmail = document.getElementsByName('user_email');
+        const body = document.querySelector('body')
 
         body.addEventListener('input', (event) => {
             let target = event.target;
