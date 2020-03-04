@@ -393,16 +393,11 @@ window.addEventListener('DOMContentLoaded', () => {
             successMessage = 'Спасибо! Мы скоро с Вами свяжемся!',
             form = document.querySelectorAll('form');
 
-
-
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 1.5rem; color: #fff';
 
-
-
         form.forEach((element) => {
-
-
+            
             element.addEventListener('submit', (event) => {
                 event.preventDefault();
                 element.appendChild(statusMessage);
@@ -413,62 +408,44 @@ window.addEventListener('DOMContentLoaded', () => {
                     body[key] = val;
                 });
 
-                const clearText = () => {
-                    statusMessage.textContent = '';
-                }
-
-                const outputData = () => {
-                    statusMessage.textContent = successMessage;
-                    setTimeout(clearText, 10000);
-                };
-
-                const errorData = (error) => {
-                    statusMessage.textContent = errorMessage;
-                    console.log('error: ', error);
-                    setTimeout(clearText, 10000);
-                };
 
                 postData(body)
-                    .then(outputData)
-                    .catch(errorData);
-
-            });
-        });
-
-
-        const postData = (body, outputData, errorData) => {
-
-            return new Promise((resolve, reject) => {
-                const request = new XMLHttpRequest();
-
-                request.addEventListener('readystatechange', () => {
-                    if (request.readyState !== 4) {
-                        return;
-                    }
-
-                    if (request.status === 200) {
-                        resolve();
+                    .then((response) => {
+                        if (response.status !== 200) {
+                            throw new Error('status network not 200');
+                        }
+                        console.log(response);
+                        statusMessage.textContent = successMessage;
                         form.forEach((elem) => {
                             elem.querySelectorAll('input').forEach((index) => {
                                 index.value = '';
                             });
                         });
-                    } else {
-                        reject(request.status);
-                    }
-                });
+                    })
+                    .catch((error) => {
+                        statusMessage.textContent = errorMessage;
+                        console.log('error: ', error);
+                    });
 
-                request.open('POST', './server.php');
-                request.setRequestHeader('Content-Type', 'application/json');
+            });
+        });
 
-                console.log('body: ', body);
-                request.send(JSON.stringify(body));
+        const postData = (body) => {
+
+            return fetch('./server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+
             });
         };
 
     };
 
     sendForm();
+
 
 
     const inputValidation = () => {
