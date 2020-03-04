@@ -413,13 +413,19 @@ window.addEventListener('DOMContentLoaded', () => {
                     body[key] = val;
                 });
 
+                const clearText = () => {
+                    statusMessage.textContent = '';
+                }
+
                 const outputData = () => {
                     statusMessage.textContent = successMessage;
+                    setTimeout(clearText, 10000);
                 };
 
                 const errorData = (error) => {
                     statusMessage.textContent = errorMessage;
                     console.log('error: ', error);
+                    setTimeout(clearText, 10000);
                 };
 
                 postData(body)
@@ -480,10 +486,6 @@ window.addEventListener('DOMContentLoaded', () => {
             }
             if (target.matches('input[name="user_name"]') || target.matches('input[name="user_message"]')) {
                 target.value = target.value.replace(/[^а-яА-Я,.!?"';:]/, '');
-            }
-
-            if (target.matches('input[name="user_email"]')) {
-                target.value = target.value.replace(/[^.\-\_+@+\w+\.+\w{2,}]/, '');
             }
         });
 
