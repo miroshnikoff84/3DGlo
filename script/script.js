@@ -397,7 +397,7 @@ window.addEventListener('DOMContentLoaded', () => {
         statusMessage.style.cssText = 'font-size: 1.5rem; color: #fff';
 
         form.forEach((element) => {
-            
+
             element.addEventListener('submit', (event) => {
                 event.preventDefault();
                 element.appendChild(statusMessage);
@@ -407,6 +407,10 @@ window.addEventListener('DOMContentLoaded', () => {
                 formData.forEach((val, key) => {
                     body[key] = val;
                 });
+
+                const clearText = () => {
+                    statusMessage.textContent = '';
+                };
 
 
                 postData(body)
@@ -421,10 +425,13 @@ window.addEventListener('DOMContentLoaded', () => {
                                 index.value = '';
                             });
                         });
+
+                        setTimeout(clearText, 10000);
                     })
                     .catch((error) => {
                         statusMessage.textContent = errorMessage;
                         console.log('error: ', error);
+                        setTimeout(clearText, 10000);
                     });
 
             });
