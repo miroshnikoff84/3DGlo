@@ -478,11 +478,7 @@ window.addEventListener('DOMContentLoaded', () => {
             let target = event.target;
             if (target.matches('input[name="user_phone"]')) {
                 target.value = target.value.replace(/[^\+{1}\d\(\)\-]/g, '');
-                inputEmail.forEach((e) => {
-                    e.setAttribute('required', '');
-                });
 
-            }
             if (target.matches('input[name="user_name"]') || target.matches('input[name="user_message"]')) {
                 target.value = target.value.replace(/[^а-яА-Я,.!?"';:]/, '');
             }
