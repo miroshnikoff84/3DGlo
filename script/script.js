@@ -436,7 +436,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
 
-        const postData = (body, outputData, errorData) => {
+        const postData = (body) => {
 
             return new Promise((resolve, reject) => {
                 const request = new XMLHttpRequest();
@@ -485,9 +485,7 @@ window.addEventListener('DOMContentLoaded', () => {
             }
 
             inputEmail.forEach((item) => {
-                item.removeAttribute('required');
-                item.value = '';
-              });
+                item.setAttribute('required', '');
         });
 
 
