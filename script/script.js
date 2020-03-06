@@ -486,6 +486,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
             inputEmail.forEach((item) => {
                 item.setAttribute('required', '');
+            
+             });
         });
 
 
