@@ -470,7 +470,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     sendForm();
 
-
     const inputValidation = () => {
         const body = document.querySelector('body'),
         inputEmail = document.getElementsByName('user_email');
