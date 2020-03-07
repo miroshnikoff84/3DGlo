@@ -1,3 +1,5 @@
+'use strict';
+
 const countTimer = (deadline) => {
     // получаем элементы 
     const timerHours = document.getElementById('timer-hours'),
