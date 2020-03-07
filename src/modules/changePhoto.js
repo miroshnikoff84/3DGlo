@@ -1,3 +1,5 @@
+'use strict';
+
 const changePhoto = () => {
 
     const commandPhotos = document.querySelectorAll('.command__photo');

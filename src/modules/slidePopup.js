@@ -1,3 +1,5 @@
+'use strict';
+
 const slidePopUp = () => {
     const popup = document.querySelector('.popup'),
         popupContent = document.querySelector('.popup-content'),

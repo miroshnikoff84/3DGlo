@@ -1,3 +1,5 @@
+'use strict';
+
 const sendForm = () => {
 
     const errorMessage = 'Что-то пошло не так...',
@@ -5,15 +7,10 @@ const sendForm = () => {
         successMessage = 'Спасибо! Мы скоро с Вами свяжемся!',
         form = document.querySelectorAll('form');
 
-
-
     const statusMessage = document.createElement('div');
     statusMessage.style.cssText = 'font-size: 1.5rem; color: #fff';
 
-
-
     form.forEach((element) => {
-
 
         element.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -36,7 +33,6 @@ const sendForm = () => {
 
             const errorData = (error) => {
                 statusMessage.textContent = errorMessage;
-                console.log('error: ', error);
                 setTimeout(clearText, 10000);
             };
 
@@ -73,7 +69,6 @@ const sendForm = () => {
             request.open('POST', './server.php');
             request.setRequestHeader('Content-Type', 'application/json');
 
-            console.log('body: ', body);
             request.send(JSON.stringify(body));
         });
     };
